@@ -1,0 +1,4 @@
+repository "SuperStick/SuperStick@3574167773788@cloud"
+  path "/"
+    br "/main"
+    co "/main"

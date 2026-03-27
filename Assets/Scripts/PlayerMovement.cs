@@ -29,7 +29,16 @@ public class PlayerMovement : MonoBehaviour
         HandleGroundCheck();
         HandleMovement();
         HandleJump();
+        float x = transform.position.x;
+        float y = transform.position.y;
+        Debug.Log("Position: " + x + ", " + y);
     }
+
+    // void OnGUI()
+    // {
+    //     GUI.Label(new Rect(10, 10, 300, 20), 
+    //         $"Position: {transform.position.x:F2}, {transform.position.y:F2}");
+    // }
 
     void HandleGroundCheck()
     {

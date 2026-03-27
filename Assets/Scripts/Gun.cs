@@ -26,9 +26,13 @@ public class Gun : MonoBehaviour
     {
         if (bulletPrefab == null || firePoint == null) return;
 
-        Vector2 direction = transform.root.localScale.x > 0 ? Vector2.right : Vector2.left;
+        Vector2 mouseScreen = Mouse.current.position.ReadValue();
+        Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(mouseScreen);
+        mouseWorld.z = 0;
 
-        GameObject bulletObj = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
+        Vector2 direction = ((Vector2)mouseWorld - (Vector2)transform.position).normalized;
+        Vector2 spawnPos = (Vector2)transform.position + direction * 1f;
+        GameObject bulletObj = Instantiate(bulletPrefab, spawnPos, Quaternion.identity);
         Bullet bullet = bulletObj.GetComponent<Bullet>();
 
         if (bullet != null)

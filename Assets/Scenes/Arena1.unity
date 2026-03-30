@@ -315,7 +315,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2172674087732495681121d7c46e3feb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Gun
-  bulletPrefab: {fileID: 1875759562670000876, guid: 8e7637c5e594e40b6af14a5f16105ba5, type: 3}
+  bulletPrefab:
+  - {fileID: 1875759562670000876, guid: 8e7637c5e594e40b6af14a5f16105ba5, type: 3}
+  - {fileID: 1875759562670000876, guid: e05e2190f69b546cd83074df5396f9f1, type: 3}
+  - {fileID: 1875759562670000876, guid: d274a4f7f65ea44dba907ad0b9fcf6b1, type: 3}
   firePoint: {fileID: 1249209718}
   fireRate: 0.3
   shootKey: 33
@@ -364,7 +367,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2172674087732495681121d7c46e3feb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Gun
-  bulletPrefab: {fileID: 1875759562670000876, guid: 8e7637c5e594e40b6af14a5f16105ba5, type: 3}
+  bulletPrefab:
+  - {fileID: 1875759562670000876, guid: 8e7637c5e594e40b6af14a5f16105ba5, type: 3}
+  - {fileID: 1875759562670000876, guid: e05e2190f69b546cd83074df5396f9f1, type: 3}
+  - {fileID: 1875759562670000876, guid: d274a4f7f65ea44dba907ad0b9fcf6b1, type: 3}
   firePoint: {fileID: 1405895750}
   fireRate: 0.3
   shootKey: 64

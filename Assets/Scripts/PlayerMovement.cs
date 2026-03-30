@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     public Key rightKey;
     public Key jumpKey;
 
+    [SerializeField] private AudioClip JumpSFX;
     private Rigidbody2D rb;
 
     void Start()
@@ -58,7 +59,11 @@ public class PlayerMovement : MonoBehaviour
     void HandleJump()
     {
         if (Keyboard.current[jumpKey].wasPressedThisFrame && isGrounded)
+        {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+            SoundEffectManager.instance.PlaySoundEffect(JumpSFX, transform, 0.5f);
+        }
+
     }
 
     public bool IsGrounded() => isGrounded;

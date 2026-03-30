@@ -13,12 +13,15 @@ public class Gun : MonoBehaviour
 
     private float nextFireTime = 0f;
 
+    [SerializeField] private AudioClip ShootSFX;
+
     void Update()
     {
         if (Keyboard.current[shootKey].isPressed && Time.time >= nextFireTime)
         {
             Shoot();
             nextFireTime = Time.time + fireRate;
+            SoundEffectManager.instance.PlaySoundEffect(ShootSFX, transform, 0.1f);
         }
     }
 
@@ -39,5 +42,7 @@ public class Gun : MonoBehaviour
 
         if (bullet != null)
             bullet.Init(direction);
+
+        
     }
 }

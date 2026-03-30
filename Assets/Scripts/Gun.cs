@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class Gun : MonoBehaviour
 {
     [Header("Gun Settings")]
-    public GameObject bulletPrefab;
+    public GameObject[] bulletPrefab;
     public Transform firePoint;
     public float fireRate = 0.3f;
 
@@ -24,6 +24,8 @@ public class Gun : MonoBehaviour
 
     void Shoot()
     {
+        int index = Random.Range(0, bulletPrefab.Length);
+
         if (bulletPrefab == null || firePoint == null) return;
 
         Vector2 mouseScreen = Mouse.current.position.ReadValue();
@@ -32,7 +34,7 @@ public class Gun : MonoBehaviour
 
         Vector2 direction = ((Vector2)mouseWorld - (Vector2)transform.position).normalized;
         Vector2 spawnPos = (Vector2)transform.position + direction * 1f;
-        GameObject bulletObj = Instantiate(bulletPrefab, spawnPos, Quaternion.identity);
+        GameObject bulletObj = Instantiate(bulletPrefab[index], spawnPos, Quaternion.identity);
         Bullet bullet = bulletObj.GetComponent<Bullet>();
 
         if (bullet != null)

@@ -7,6 +7,7 @@ public class Gun : MonoBehaviour
     public GameObject bulletPrefab;
     public Transform firePoint;
     public float fireRate = 0.3f;
+    
 
     [Header("Input")]
     public Key shootKey;
@@ -15,6 +16,8 @@ public class Gun : MonoBehaviour
 
     void Update()
     {
+        
+
         if (Keyboard.current[shootKey].isPressed && Time.time >= nextFireTime)
         {
             Shoot();
@@ -26,12 +29,24 @@ public class Gun : MonoBehaviour
     {
         if (bulletPrefab == null || firePoint == null) return;
 
-        Vector2 direction = transform.root.localScale.x > 0 ? Vector2.right : Vector2.left;
-
+        PlayerMovement pm = GetComponentInParent<PlayerMovement>();
+        Vector2 direction = Vector2.left;
+        if(pm.directionFacing == "left")
+        {
+            direction = Vector2.left;
+            
+        }
+        if(pm.directionFacing == "right")
+        {
+            direction = Vector2.right;
+        }
+        
         GameObject bulletObj = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
         Bullet bullet = bulletObj.GetComponent<Bullet>();
 
         if (bullet != null)
+        {
             bullet.Init(direction);
+        }
     }
 }

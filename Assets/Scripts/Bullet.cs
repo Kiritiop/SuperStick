@@ -20,7 +20,7 @@ public class Bullet : MonoBehaviour
     public void Init(Vector2 dir)
     {
         direction = dir;
-        rb.linearVelocity = direction * speed;
+        rb.linearVelocity = dir * speed;
         Destroy(gameObject, lifetime);
     }
 

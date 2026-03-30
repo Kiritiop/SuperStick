@@ -154,6 +154,7 @@ MonoBehaviour:
   moveSpeed: 6
   jumpForce: 12
   directionFacing: 
+  currentTime: 0
   groundCheck: {fileID: 1776008451}
   groundLayer:
     serializedVersion: 2
@@ -1195,6 +1196,7 @@ MonoBehaviour:
   moveSpeed: 6
   jumpForce: 12
   directionFacing: 
+  currentTime: 0
   groundCheck: {fileID: 1379622327}
   groundLayer:
     serializedVersion: 2

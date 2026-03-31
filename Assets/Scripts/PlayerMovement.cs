@@ -138,7 +138,7 @@ public class PlayerMovement : MonoBehaviour
         if (Keyboard.current[jumpKey].isPressed && jumpTimeCounter <= maxJumpTime && isJumping && !isGrounded)
         {
             jumpTimeCounter += Time.deltaTime;
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce - jumpTimeCounter * 10);
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce - jumpTimeCounter * 15);
         }
         if (Keyboard.current[jumpKey].wasReleasedThisFrame)
         {

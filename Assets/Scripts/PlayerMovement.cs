@@ -110,7 +110,7 @@ public class PlayerMovement : MonoBehaviour
 
     void HandleJump()
     {
-        
+        /*
         bool jumpPressed = false;
 
         if (inputMode == InputMode.Keyboard)
@@ -127,6 +127,27 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
             SoundEffectManager.instance.PlaySoundEffect(JumpSFX, transform, 0.5f);
+        }
+        */
+        if (Keyboard.current[jumpKey].wasPressedThisFrame && isGrounded)
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce / 3);
+            isJumping = true;
+            jumpTimeCounter = 0;
+        }
+        if (Keyboard.current[jumpKey].isPressed && jumpTimeCounter <= maxJumpTime && isJumping && !isGrounded)
+        {
+            jumpTimeCounter += Time.deltaTime;
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce - jumpTimeCounter * 10);
+        }
+        if (Keyboard.current[jumpKey].wasReleasedThisFrame)
+        {
+            isJumping = false;
+        }
+        else if (Keyboard.current[jumpKey].isPressed && jumpTimeCounter > maxJumpTime)
+        {
+            isJumping = false;
+
         }
     }
 

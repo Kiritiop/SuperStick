@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Input Mode")]
     public InputMode inputMode = InputMode.Keyboard;
-
+    
     [Header("Movement Settings")]
     public float moveSpeed = 6f;
     public float jumpForce = 3f;

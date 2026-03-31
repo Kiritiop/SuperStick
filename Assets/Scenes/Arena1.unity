@@ -443,7 +443,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_EdgeRadius: 0.05
 --- !u!212 &465681608
 SpriteRenderer:
   serializedVersion: 2
@@ -1438,7 +1438,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_EdgeRadius: 0.05
 --- !u!212 &1410630594
 SpriteRenderer:
   serializedVersion: 2
@@ -2570,7 +2570,7 @@ MonoBehaviour:
   player1Score: 0
   player2Score: 0
   roundsToWin: 3
-  PauseMenu: {fileID: 0}
+  PauseMenu: {fileID: 1880317413}
 --- !u!4 &2142708111
 Transform:
   m_ObjectHideFlags: 0

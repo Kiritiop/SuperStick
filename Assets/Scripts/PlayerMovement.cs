@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     
     [Header("Movement Settings")]
     public float moveSpeed = 6f;
-    public float jumpForce = 3f;
+    public float jumpForce = 100f;
     public string directionFacing;
     float jumpTimeCounter = 0f;
     float maxJumpTime = 0.5f;
@@ -48,11 +48,6 @@ public class PlayerMovement : MonoBehaviour
         HandleMovement();
         HandleJump();
 
-
-        // float x = transform.position.x;
-        // float y = transform.position.y;
-        // Debug.Log("Position: " + x + ", " + y);
-
         // Gamepad gamepad = Gamepad.current;
         // if (gamepad == null) return;
         // Vector2 leftStick = gamepad.leftStick.ReadValue();
@@ -71,6 +66,7 @@ public class PlayerMovement : MonoBehaviour
         }
         
     }
+
     // void OnGUI()
     // {
     //     GUI.Label(new Rect(10, 10, 300, 20), 
@@ -110,7 +106,6 @@ public class PlayerMovement : MonoBehaviour
 
     void HandleJump()
     {
-        /*
         bool jumpPressed = false;
 
         if (inputMode == InputMode.Keyboard)
@@ -127,27 +122,6 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
             SoundEffectManager.instance.PlaySoundEffect(JumpSFX, transform, 0.5f);
-        }
-        */
-        if (Keyboard.current[jumpKey].wasPressedThisFrame && isGrounded)
-        {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce / 3);
-            isJumping = true;
-            jumpTimeCounter = 0;
-        }
-        if (Keyboard.current[jumpKey].isPressed && jumpTimeCounter <= maxJumpTime && isJumping && !isGrounded)
-        {
-            jumpTimeCounter += Time.deltaTime;
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce - jumpTimeCounter * 15);
-        }
-        if (Keyboard.current[jumpKey].wasReleasedThisFrame)
-        {
-            isJumping = false;
-        }
-        else if (Keyboard.current[jumpKey].isPressed && jumpTimeCounter > maxJumpTime)
-        {
-            isJumping = false;
-
         }
     }
 

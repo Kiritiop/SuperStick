@@ -30,8 +30,8 @@ public class Gun : MonoBehaviour
             {
                 if (Gamepad.current.rightTrigger.wasPressedThisFrame && Time.time >= nextFireTime)
                 {
-                    nextFireTime = Time.time + fireRate;
                     Shoot();
+                    nextFireTime = Time.time + fireRate;
                     SoundEffectManager.instance.PlaySoundEffect(ShootSFX, transform, 0.1f);
                 }
             }

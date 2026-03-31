@@ -5,6 +5,7 @@ public class Gun : MonoBehaviour
 {
     [Header("Gun Settings")]
     public GameObject[] bulletPrefab;
+    public GameObject playerParent;
     public Transform firePoint;
     public float fireRate = 0.3f;
     
@@ -48,4 +49,15 @@ public class Gun : MonoBehaviour
             bullet.Init(direction);
         }
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("SDJFKLSD");
+        if(playerParent == null && collision.gameObject.CompareTag("Player"))
+        {
+            playerParent = collision.gameObject;
+            this.transform.SetParent(playerParent.transform, false);
+        }
+    }
+
 }

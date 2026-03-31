@@ -6,6 +6,7 @@ public class PlayerHealth : MonoBehaviour
     [Header("Health Settings")]
     public int maxHealth = 100;
     private int currentHealth;
+    [SerializeField] private AudioClip HurtSFX;
 
     // Other scripts can listen to these events
     public UnityEvent onDeath;
@@ -20,6 +21,7 @@ public class PlayerHealth : MonoBehaviour
     {
         currentHealth -= amount;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+        SoundEffectManager.instance.PlaySoundEffect(HurtSFX, transform, 0.75f);
 
         onHealthChanged.Invoke(currentHealth);
 

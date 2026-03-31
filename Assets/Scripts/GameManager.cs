@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 // Association: GameManager references Players but doesn't own them
@@ -21,6 +22,10 @@ public class GameManager : MonoBehaviour
 
     private bool roundOver = false;
 
+    public GameObject PauseMenu;
+    public static bool isPaused = false;
+    public static bool gameOver = false;
+
     void Awake()
     {
         if (Instance == null) Instance = this;
@@ -35,9 +40,21 @@ public class GameManager : MonoBehaviour
 
     }
 
+    void Update()
+    {
+        if ((Keyboard.current.escapeKey.wasPressedThisFrame || Keyboard.current.pKey.wasPressedThisFrame) && !gameOver)
+        {
+            if (isPaused)
+                ResumeGame();
+            else
+                PauseGame();
+        }
+    }
     void OnPlayer1Died()
     {
-        if (roundOver) return;
+        if (roundOver) {
+            return;
+        }
         roundOver = true;
         player2Score++;
         Debug.Log($"Player 2 wins the round! Score: P1={player1Score} P2={player2Score}");
@@ -85,4 +102,18 @@ public class GameManager : MonoBehaviour
         player2.SetActive(true);
         player2.GetComponent<PlayerHealth>().ResetHealth();
     }
+
+    public void PauseGame()
+    {
+        PauseMenu.SetActive(true);
+        Time.timeScale = 0f;
+        isPaused = true;
+    }
+
+    public void ResumeGame()
+    {
+        PauseMenu.SetActive(false);
+        Time.timeScale = 1f;
+        isPaused = false;
+    }   
 }

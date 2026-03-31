@@ -3,6 +3,11 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public enum InputMode { Keyboard, Gamepad }
+
+    [Header("Input Mode")]
+    public InputMode inputMode = InputMode.Keyboard;
+
     [Header("Movement Settings")]
     public float moveSpeed = 6f;
     public float jumpForce = 3f;
@@ -16,17 +21,24 @@ public class PlayerMovement : MonoBehaviour
     private bool isGrounded;
     private bool isJumping;
 
-    [Header("Input Keys")]
+    [Header("Keyboard Keys")]
     public Key leftKey;
     public Key rightKey;
     public Key jumpKey;
 
+    [Header("Player Color")]
+    public Color playerColor = Color.white;
+
+    [SerializeField] private AudioClip JumpSFX;
     private Rigidbody2D rb;
+    private SpriteRenderer sr;
+
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        
+        sr = GetComponent<SpriteRenderer>();
+        sr.color = playerColor;
     }
 
     void Update()
@@ -35,6 +47,16 @@ public class PlayerMovement : MonoBehaviour
         HandleGroundCheck();
         HandleMovement();
         HandleJump();
+
+
+        // float x = transform.position.x;
+        // float y = transform.position.y;
+        // Debug.Log("Position: " + x + ", " + y);
+
+        // Gamepad gamepad = Gamepad.current;
+        // if (gamepad == null) return;
+        // Vector2 leftStick = gamepad.leftStick.ReadValue();
+        // Debug.Log(leftStick);
     }
 
     void HandleDirection()
@@ -49,6 +71,11 @@ public class PlayerMovement : MonoBehaviour
         }
         
     }
+    // void OnGUI()
+    // {
+    //     GUI.Label(new Rect(10, 10, 300, 20), 
+    //         $"Position: {transform.position.x:F2}, {transform.position.y:F2}");
+    // }
 
     void HandleGroundCheck()
     {
@@ -57,35 +84,50 @@ public class PlayerMovement : MonoBehaviour
 
     void HandleMovement()
     {
-        if (Keyboard.current[rightKey].isPressed)
-            rb.linearVelocity = new Vector2(moveSpeed, rb.linearVelocity.y);
-        else if (Keyboard.current[leftKey].isPressed)
-            rb.linearVelocity = new Vector2(-moveSpeed, rb.linearVelocity.y);
-        else
-            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
-        
+        float moveInput = 0f;
+
+        if (inputMode == InputMode.Keyboard)
+        {
+            if (Keyboard.current[rightKey].isPressed)
+                moveInput = 1f;
+
+            else if (Keyboard.current[leftKey].isPressed)
+                moveInput = -1f;
+        }
+    
+        else if (inputMode == InputMode.Gamepad)
+        {
+            if (Gamepad.current != null)
+            {
+                float stickX = Gamepad.current.leftStick.ReadValue().x;
+                if (Mathf.Abs(stickX) > 0.1f)
+                moveInput = stickX;
+            }
+        }
+
+        rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);
     }
 
     void HandleJump()
     {
+        
+        bool jumpPressed = false;
 
-        if (Keyboard.current[jumpKey].wasPressedThisFrame && isGrounded)
+        if (inputMode == InputMode.Keyboard)
         {
-            //rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce/10);
-            isJumping = true;
-            jumpTimeCounter = 0;
+            jumpPressed = Keyboard.current[jumpKey].wasPressedThisFrame;
         }
-        if (Keyboard.current[jumpKey].isPressed && jumpTimeCounter <= maxJumpTime && isJumping)
+        
+        else if (inputMode == InputMode.Gamepad)
         {
-            jumpTimeCounter += Time.deltaTime;
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce * (Mathf.Sqrt(jumpTimeCounter)));
+            jumpPressed = Gamepad.current != null && Gamepad.current.buttonSouth.wasPressedThisFrame;
         }
-        else if (Keyboard.current[jumpKey].isPressed && jumpTimeCounter > maxJumpTime)
+        
+        if (jumpPressed && isGrounded)
         {
-            isJumping = false;
-            
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+            SoundEffectManager.instance.PlaySoundEffect(JumpSFX, transform, 0.5f);
         }
-  
     }
 
     public bool IsGrounded() => isGrounded;

@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class Gun : MonoBehaviour
 {
     [Header("Gun Settings")]
-    public GameObject bulletPrefab;
+    public GameObject[] bulletPrefab;
     public Transform firePoint;
     public float fireRate = 0.3f;
     
@@ -14,6 +14,8 @@ public class Gun : MonoBehaviour
 
     private float nextFireTime = 0f;
 
+    [SerializeField] private AudioClip ShootSFX;
+
     void Update()
     {
         
@@ -22,31 +24,27 @@ public class Gun : MonoBehaviour
         {
             Shoot();
             nextFireTime = Time.time + fireRate;
+            SoundEffectManager.instance.PlaySoundEffect(ShootSFX, transform, 0.1f);
         }
     }
 
     void Shoot()
     {
+        int index = Random.Range(0, bulletPrefab.Length);
+
         if (bulletPrefab == null || firePoint == null) return;
 
-        PlayerMovement pm = GetComponentInParent<PlayerMovement>();
-        Vector2 direction = Vector2.left;
-        if(pm.directionFacing == "left")
-        {
-            direction = Vector2.left;
-            
-        }
-        if(pm.directionFacing == "right")
-        {
-            direction = Vector2.right;
-        }
-        
-        GameObject bulletObj = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
+        Vector2 mouseScreen = Mouse.current.position.ReadValue();
+        Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(mouseScreen);
+        mouseWorld.z = 0;
+
+        Vector2 direction = ((Vector2)mouseWorld - (Vector2)transform.position).normalized;
+        Vector2 spawnPos = (Vector2)transform.position + direction * 1f;
+        GameObject bulletObj = Instantiate(bulletPrefab[index], spawnPos, Quaternion.identity);
         Bullet bullet = bulletObj.GetComponent<Bullet>();
 
         if (bullet != null)
         {
             bullet.Init(direction);
-        }
     }
 }

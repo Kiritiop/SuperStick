@@ -25,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
     public Key leftKey;
     public Key rightKey;
     public Key jumpKey;
+    public Key shootKey;
 
     [Header("Player Color")]
     public Color playerColor = Color.white;

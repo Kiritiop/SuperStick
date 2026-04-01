@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,7 +11,7 @@ public class Gun : MonoBehaviour
 
     [Header("Gun Settings")]
     public GameObject[] bulletPrefab;
-    public GameObject playerParent;
+    public GameObject playerParent = null;
     public Transform firePoint;
     public float fireRate = 0.3f;
     
@@ -22,28 +23,51 @@ public class Gun : MonoBehaviour
 
     [SerializeField] private AudioClip ShootSFX;
 
+
+    private void Start()
+    {
+        firePoint = transform.GetChild(0).gameObject.transform;
+    }
+
     void Update()
     {
-        if (inputMode == InputMode.Gamepad)
+
+        if(playerParent != null)
         {
-            if (Gamepad.current != null)
+            if(playerParent.GetComponent<PlayerMovement>().directionFacing == "right")
             {
-                if (Gamepad.current.rightTrigger.wasPressedThisFrame && Time.time >= nextFireTime)
+                this.transform.rotation = Quaternion.Euler(0,180,0); 
+            } 
+            else if (playerParent.GetComponent<PlayerMovement>().directionFacing == "left")
+            {
+                this.transform.rotation = Quaternion.Euler(0, 0, 0);
+            }
+        }
+
+        if (playerParent != null)
+        {
+
+            if (inputMode == InputMode.Gamepad)
+            {
+                if (Gamepad.current != null)
+                {
+                    if (Gamepad.current.rightTrigger.wasPressedThisFrame && Time.time >= nextFireTime)
+                    {
+                        Shoot();
+                        nextFireTime = Time.time + fireRate;
+                        SoundEffectManager.instance.PlaySoundEffect(ShootSFX, transform, 0.1f);
+                    }
+                }
+            }
+
+            if (inputMode == InputMode.Keyboard)
+            {
+                if (Keyboard.current[shootKey].isPressed && Time.time >= nextFireTime)
                 {
                     Shoot();
                     nextFireTime = Time.time + fireRate;
                     SoundEffectManager.instance.PlaySoundEffect(ShootSFX, transform, 0.1f);
                 }
-            }
-        }
-
-        if (inputMode == InputMode.Keyboard)
-        {
-            if (Keyboard.current[shootKey].isPressed && Time.time >= nextFireTime)
-            {
-                Shoot();
-                nextFireTime = Time.time + fireRate;
-                SoundEffectManager.instance.PlaySoundEffect(ShootSFX, transform, 0.1f);
             }
         }
     }
@@ -86,14 +110,20 @@ public class Gun : MonoBehaviour
         
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    
+    void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("SDJFKLSD");
+        
         if(playerParent == null && collision.gameObject.CompareTag("Player"))
         {
             playerParent = collision.gameObject;
             this.transform.SetParent(playerParent.transform, false);
+            this.transform.position = playerParent.transform.position;
+            Destroy(this.GetComponent<Collider2D>());
+            this.inputMode = (Gun.InputMode)playerParent.GetComponent<PlayerMovement>().inputMode;
+            this.shootKey = playerParent.GetComponent<PlayerMovement>().shootKey;
+            
         }
     }
-
+    
 }

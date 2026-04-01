@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
         // Listen to death events
         player1.GetComponent<PlayerHealth>().onDeath.AddListener(OnPlayer1Died);
         player2.GetComponent<PlayerHealth>().onDeath.AddListener(OnPlayer2Died);
-
+        
     }
 
     void Update()

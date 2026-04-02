@@ -122,7 +122,20 @@ public class Gun : MonoBehaviour
             Destroy(this.GetComponent<Collider2D>());
             this.inputMode = (Gun.InputMode)playerParent.GetComponent<PlayerMovement>().inputMode;
             this.shootKey = playerParent.GetComponent<PlayerMovement>().shootKey;
-            
+            Destroy(this.GetComponent<Rigidbody2D>());
+        }
+    }
+
+    public static void DestroyAllGuns()
+    {
+        GameObject[] allObjects = GameObject.FindObjectsByType<GameObject>(FindObjectsSortMode.None);
+
+        foreach (GameObject obj in allObjects)
+        {
+            if (obj.CompareTag("Gun"))
+            {
+                Destroy(obj);
+            }
         }
     }
     

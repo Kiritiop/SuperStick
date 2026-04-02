@@ -101,6 +101,9 @@ public class GameManager : MonoBehaviour
         player1.GetComponent<PlayerHealth>().ResetHealth();
         player2.SetActive(true);
         player2.GetComponent<PlayerHealth>().ResetHealth();
+
+        //reset guns
+        Gun.DestroyAllGuns();
     }
 
     public void PauseGame()

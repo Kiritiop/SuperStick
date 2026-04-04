@@ -2387,7 +2387,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GunSpawner
   gun: {fileID: 6932585808442942480, guid: 8d336be941e25f945b4f8d15ae4765dc, type: 3}
-  spawnRate: 5
+  fastBullet: {fileID: 3232090889626245974, guid: 13a800b7f07a07f4797c1a9cd891237c, type: 3}
 --- !u!4 &1579213367
 Transform:
   m_ObjectHideFlags: 0
@@ -2714,7 +2714,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1880317414
 MonoBehaviour:
   m_ObjectHideFlags: 0

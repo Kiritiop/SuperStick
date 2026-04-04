@@ -1,26 +1,36 @@
 using UnityEditor.Rendering;
 using UnityEngine;
 using System.Collections;
+using UnityEditor.ShaderGraph.Internal;
 
 public class GunSpawner : MonoBehaviour
 {
 
     public GameObject gun;
-    public float spawnRate = 10000f; //in seconds
+    public GameObject fastBullet;
+    private float spawnRate = 5f; //how many seconds per gun
+    private float timer;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        timer = spawnRate;
         
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(GameManager.gameOver == false && GameManager.isPaused == false)
+        if(GameManager.getGameOver() == false && GameManager.getIsPaused() == false)
         {
-            spawnGun();
-            StartCoroutine(Wait(spawnRate));
+            if (timer > 0)
+            {
+                timer -= Time.deltaTime;
+            } else
+            {
+                spawnGun();
+                timer = spawnRate;
+            }
         }
     }
 
@@ -51,14 +61,34 @@ public class GunSpawner : MonoBehaviour
             }
         }
 
-        Instantiate(gun, platform.transform.position + new Vector3(0,10,0), Quaternion.identity);
+        int gunType = Random.Range(0, 4);
+
+        if (gunType == 0) //normal gun, no modifiers
+        {
+            Instantiate(gun, platform.transform.position + new Vector3(0, 10, 0), Quaternion.identity);
+        }
+        else if (gunType == 1) //attach GunFireRate script to gun
+        {
+            GameObject goon = Instantiate(gun, platform.transform.position + new Vector3(0, 10, 0), Quaternion.identity);
+            goon.AddComponent<GunFireRate>();
+            goon.GetComponent<SpriteRenderer>().color = Color.red;
+        }
+        else if (gunType == 2) //attach GunSize script to gun
+        {
+            GameObject goon = Instantiate(gun, platform.transform.position + new Vector3(0, 10, 0), Quaternion.identity);
+            goon.AddComponent<GunSize>();
+            goon.GetComponent<SpriteRenderer>().color = Color.blue;
+        }
+        else if (gunType == 3) //attach GunSpeed script to gun
+        {
+            GameObject goon = Instantiate(gun, platform.transform.position + new Vector3(0, 10, 0), Quaternion.identity);
+            goon.AddComponent<GunSpeed>();
+            goon.GetComponent<GunSpeed>().bulletSpeedPrefab = fastBullet;
+            goon.GetComponent<SpriteRenderer>().color = Color.green;
+        }
 
     }
 
-    public IEnumerator Wait(float seconds)
-    {
-        yield return new WaitForSeconds(seconds);
-        Debug.Log("SDJFLKSDJF");
-    }
+    
 
 }

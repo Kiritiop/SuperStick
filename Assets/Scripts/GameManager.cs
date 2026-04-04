@@ -23,8 +23,8 @@ public class GameManager : MonoBehaviour
     private bool roundOver = false;
 
     public GameObject PauseMenu;
-    public static bool isPaused = false;
-    public static bool gameOver = false;
+    private static bool isPaused = false;
+    private static bool gameOver = false;
 
     void Awake()
     {
@@ -119,4 +119,14 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         isPaused = false;
     }   
+
+    public static bool getIsPaused()
+    {
+        return isPaused;
+    }
+
+    public static bool getGameOver()
+    {
+        return gameOver;
+    }
 }

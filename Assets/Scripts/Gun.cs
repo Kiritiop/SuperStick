@@ -29,7 +29,7 @@ public class Gun : MonoBehaviour
         firePoint = transform.GetChild(0).gameObject.transform;
     }
 
-    void Update()
+    protected virtual void Update()
     {
 
         if(playerParent != null)
@@ -51,7 +51,7 @@ public class Gun : MonoBehaviour
             {
                 if (Gamepad.current != null)
                 {
-                    if (Gamepad.current.rightTrigger.wasPressedThisFrame && Time.time >= nextFireTime)
+                    if (Gamepad.current.rightTrigger.isPressed && Time.time >= nextFireTime)
                     {
                         Shoot();
                         nextFireTime = Time.time + fireRate;
@@ -76,6 +76,7 @@ public class Gun : MonoBehaviour
     {
         
         int index = Random.Range(0, bulletPrefab.Length);
+        
         if (bulletPrefab == null || firePoint == null) return;
 
         if (inputMode == InputMode.Keyboard)
@@ -117,6 +118,15 @@ public class Gun : MonoBehaviour
         if(playerParent == null && collision.gameObject.CompareTag("Player"))
         {
             playerParent = collision.gameObject;
+
+            foreach(Transform child in playerParent.GetComponentInChildren<Transform>())
+            {
+                if (child.gameObject.CompareTag("Gun"))
+                {
+                    Destroy(child.gameObject);
+                }
+            }
+
             this.transform.SetParent(playerParent.transform, false);
             this.transform.position = playerParent.transform.position;
             Destroy(this.GetComponent<Collider2D>());

@@ -12,7 +12,6 @@ public class GunSpeed : MonoBehaviour
         for (int i = 0; i < GetComponent<Gun>().bulletPrefab.Length; i++)
         {
             this.GetComponent<Gun>().bulletPrefab[i] = bulletSpeedPrefab;
-            Debug.Log(GetComponent<Gun>().bulletPrefab.Length);
         }
         
 

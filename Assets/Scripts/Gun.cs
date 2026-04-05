@@ -1,6 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class Gun : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class Gun : MonoBehaviour
     public GameObject playerParent = null;
     public Transform firePoint;
     public float fireRate = 0.3f;
+    public int ammo = 25;
     
     [Header("Input")]
     public Key shootKey;
@@ -51,7 +53,7 @@ public class Gun : MonoBehaviour
             {
                 if (Gamepad.current != null)
                 {
-                    if (Gamepad.current.rightTrigger.isPressed && Time.time >= nextFireTime)
+                    if (Gamepad.current.rightTrigger.isPressed && Time.time >= nextFireTime && ammo > 0)
                     {
                         Shoot();
                         nextFireTime = Time.time + fireRate;
@@ -62,13 +64,16 @@ public class Gun : MonoBehaviour
 
             if (inputMode == InputMode.Keyboard)
             {
-                if (Keyboard.current[shootKey].isPressed && Time.time >= nextFireTime)
+                if (Keyboard.current[shootKey].isPressed && Time.time >= nextFireTime && ammo > 0)
                 {
                     Shoot();
                     nextFireTime = Time.time + fireRate;
                     SoundEffectManager.instance.PlaySoundEffect(ShootSFX, transform, 0.1f);
                 }
             }
+
+            this.transform.GetChild(1).transform.rotation = Quaternion.Euler(0, 0, 0);
+
         }
     }
 
@@ -103,6 +108,8 @@ public class Gun : MonoBehaviour
         Vector2 spawnPos = (Vector2)transform.position + direction * 1f;
         GameObject bulletObj = Instantiate(bulletPrefab[index], spawnPos, Quaternion.identity);
         Bullet bullet = bulletObj.GetComponent<Bullet>();
+        ammo -= 1;
+        this.transform.GetChild(1).GetComponent<TMP_Text>().text = ammo.ToString();
 
         if (bullet != null)
         {
@@ -133,6 +140,7 @@ public class Gun : MonoBehaviour
             this.inputMode = (Gun.InputMode)playerParent.GetComponent<PlayerMovement>().inputMode;
             this.shootKey = playerParent.GetComponent<PlayerMovement>().shootKey;
             Destroy(this.GetComponent<Rigidbody2D>());
+            this.transform.GetChild(1).GameObject().SetActive(true);
         }
     }
 

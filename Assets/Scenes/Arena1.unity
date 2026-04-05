@@ -389,6 +389,7 @@ MonoBehaviour:
   playerParent: {fileID: 0}
   firePoint: {fileID: 1249209718}
   fireRate: 0.3
+  ammo: 25
   shootKey: 33
   ShootSFX: {fileID: 8300000, guid: 8bd2d7f87a5656b4eb525b4c16ca027e, type: 3}
 --- !u!1 &291846694
@@ -582,6 +583,7 @@ MonoBehaviour:
   playerParent: {fileID: 0}
   firePoint: {fileID: 1405895750}
   fireRate: 0.3
+  ammo: 25
   shootKey: 64
   ShootSFX: {fileID: 8300000, guid: 8bd2d7f87a5656b4eb525b4c16ca027e, type: 3}
 --- !u!1 &465681606

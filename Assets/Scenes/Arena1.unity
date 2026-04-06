@@ -392,6 +392,7 @@ MonoBehaviour:
   ammo: 25
   shootKey: 33
   ShootSFX: {fileID: 8300000, guid: 8bd2d7f87a5656b4eb525b4c16ca027e, type: 3}
+  EquipSFX: {fileID: 0}
 --- !u!1 &291846694
 GameObject:
   m_ObjectHideFlags: 0
@@ -586,6 +587,7 @@ MonoBehaviour:
   ammo: 25
   shootKey: 64
   ShootSFX: {fileID: 8300000, guid: 8bd2d7f87a5656b4eb525b4c16ca027e, type: 3}
+  EquipSFX: {fileID: 0}
 --- !u!1 &465681606
 GameObject:
   m_ObjectHideFlags: 0
@@ -806,7 +808,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 494850403}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2142708110}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: ResumeGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &494850403
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1746,6 +1760,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1128895335}
   m_CullTransparentMesh: 1
+--- !u!1 &1206944823
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1206944825}
+  - component: {fileID: 1206944824}
+  m_Layer: 0
+  m_Name: SceneManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1206944824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1206944823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04cdab0ae8e8abc418727792b3dc5c96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SceneManager
+--- !u!4 &1206944825
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1206944823}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 24.62003, y: 38.57608, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1241972232
 GameObject:
   m_ObjectHideFlags: 0
@@ -2181,7 +2239,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1497117478}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1206944824}
+        m_TargetAssemblyTypeName: SceneSwitcher, Assembly-CSharp
+        m_MethodName: Restart
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1497117478
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2882,7 +2952,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1956207149}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1206944824}
+        m_TargetAssemblyTypeName: SceneSwitcher, Assembly-CSharp
+        m_MethodName: MainMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1956207149
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3201,6 +3283,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: TestGUn
       objectReference: {fileID: 0}
+    - target: {fileID: 7686268247464580061, guid: 8d336be941e25f945b4f8d15ae4765dc, type: 3}
+      propertyPath: EquipSFX
+      value: 
+      objectReference: {fileID: 8300000, guid: 7711518b25c025749aafa686edfa44b0, type: 3}
+    - target: {fileID: 7686268247464580061, guid: 8d336be941e25f945b4f8d15ae4765dc, type: 3}
+      propertyPath: ShootSFX
+      value: 
+      objectReference: {fileID: 8300000, guid: 8bd2d7f87a5656b4eb525b4c16ca027e, type: 3}
     - target: {fileID: 9198601002293740879, guid: 8d336be941e25f945b4f8d15ae4765dc, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.11
@@ -3266,3 +3356,4 @@ SceneRoots:
   - {fileID: 937433804}
   - {fileID: 5649990138065980774}
   - {fileID: 1579213367}
+  - {fileID: 1206944825}

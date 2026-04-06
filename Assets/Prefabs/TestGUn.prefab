@@ -376,7 +376,8 @@ MonoBehaviour:
   fireRate: 0.3
   ammo: 25
   shootKey: 0
-  ShootSFX: {fileID: 0}
+  ShootSFX: {fileID: 8300000, guid: 8bd2d7f87a5656b4eb525b4c16ca027e, type: 3}
+  EquipSFX: {fileID: 8300000, guid: 7711518b25c025749aafa686edfa44b0, type: 3}
 --- !u!50 &8253719799408588929
 Rigidbody2D:
   serializedVersion: 5

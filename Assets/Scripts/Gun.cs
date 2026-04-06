@@ -24,6 +24,7 @@ public class Gun : MonoBehaviour
     private Vector2 direction = Vector2.right;
 
     [SerializeField] private AudioClip ShootSFX;
+    [SerializeField] private AudioClip EquipSFX;
 
 
     private void Start()
@@ -124,6 +125,7 @@ public class Gun : MonoBehaviour
         
         if(playerParent == null && collision.gameObject.CompareTag("Player"))
         {
+            SoundEffectManager.instance.PlaySoundEffect(EquipSFX, transform, 1f);
             playerParent = collision.gameObject;
 
             foreach(Transform child in playerParent.GetComponentInChildren<Transform>())
@@ -141,6 +143,7 @@ public class Gun : MonoBehaviour
             this.shootKey = playerParent.GetComponent<PlayerMovement>().shootKey;
             Destroy(this.GetComponent<Rigidbody2D>());
             this.transform.GetChild(1).GameObject().SetActive(true);
+
         }
     }
 

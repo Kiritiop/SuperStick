@@ -21,7 +21,7 @@ public class PlayerHealth : MonoBehaviour
     {
         currentHealth -= amount;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
-        SoundEffectManager.instance.PlaySoundEffect(HurtSFX, transform, 0.75f);
+        SoundEffectManager.instance.PlaySoundEffect(HurtSFX, transform, 0.2f);
 
         onHealthChanged.Invoke(currentHealth);
 

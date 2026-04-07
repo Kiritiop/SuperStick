@@ -87,7 +87,12 @@ public class GameManager : MonoBehaviour
             RestartRound();
         }
     }
-
+    public void RestartGame()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        gameOver = false;
+    }
     void RestartRound()
     {
         roundOver = false;

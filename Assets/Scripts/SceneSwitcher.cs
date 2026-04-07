@@ -13,11 +13,13 @@ public class SceneSwitcher : MonoBehaviour
     public void Arena1()
     {
         SceneManager.LoadScene("Arena1");
+        Time.timeScale = 1f;
     }
 
     public void Arena2()
     {
         SceneManager.LoadScene("Arena2");
+        Time.timeScale = 1f;
     }
 
     public void Locked()

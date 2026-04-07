@@ -60,10 +60,12 @@ public class PlayerMovement : MonoBehaviour
         if (Keyboard.current[rightKey].isPressed)
         {
             directionFacing = "right";
+            transform.rotation = Quaternion.Euler(0, 180, 0);
         }
         else if (Keyboard.current[leftKey].isPressed)
         {
             directionFacing = "left";
+            transform.rotation = Quaternion.Euler(0, 0, 0);
         }
         
     }

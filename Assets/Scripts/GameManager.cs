@@ -52,12 +52,11 @@ public class GameManager : MonoBehaviour
     }
     void OnPlayer1Died()
     {
-        if (roundOver) {
-            return;
-        }
+        if (roundOver) return;
         roundOver = true;
         player2Score++;
-        Debug.Log($"Player 2 wins the round! Score: P1={player1Score} P2={player2Score}");
+        if (UIManager.instance != null) UIManager.instance.UpdateScores(player1Score, player2Score);
+        if (UIManager.instance != null) UIManager.instance.ShowMessage("Player 2 wins the round!", 1.5f);
         Invoke(nameof(CheckWinOrRestart), 2f);
     }
 
@@ -66,7 +65,8 @@ public class GameManager : MonoBehaviour
         if (roundOver) return;
         roundOver = true;
         player1Score++;
-        Debug.Log($"Player 1 wins the round! Score: P1={player1Score} P2={player2Score}");
+        if (UIManager.instance != null) UIManager.instance.UpdateScores(player1Score, player2Score);
+        if (UIManager.instance != null) UIManager.instance.ShowMessage("Player 1 wins the round!", 1.5f);
         Invoke(nameof(CheckWinOrRestart), 2f);
     }
 
@@ -74,13 +74,13 @@ public class GameManager : MonoBehaviour
     {
         if (player1Score >= roundsToWin)
         {
-            Debug.Log("Player 1 WINS THE GAME!");
-            // TODO: Show win screen (Day 6)
+            gameOver = true;
+            if (UIManager.instance != null) UIManager.instance.ShowWinScreen("Player 1", player1Score, player2Score);
         }
         else if (player2Score >= roundsToWin)
         {
-            Debug.Log("Player 2 WINS THE GAME!");
-            // TODO: Show win screen (Day 6)
+            gameOver = true;
+            if (UIManager.instance != null) UIManager.instance.ShowWinScreen("Player 2", player1Score, player2Score);
         }
         else
         {

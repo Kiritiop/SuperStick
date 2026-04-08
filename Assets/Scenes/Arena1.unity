@@ -3719,7 +3719,7 @@ SpriteRenderer:
   m_MaskInteraction: 0
   m_Sprite: {fileID: 8579907299890562673, guid: 455bcf2f9f89a9745b97b8f838c69049, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 0.78, y: 0.89}
@@ -4457,7 +4457,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6932585808442942480, guid: 8d336be941e25f945b4f8d15ae4765dc, type: 3}
       propertyPath: m_Name
-      value: TestGUn
+      value: TestGun
       objectReference: {fileID: 0}
     - target: {fileID: 7686268247464580061, guid: 8d336be941e25f945b4f8d15ae4765dc, type: 3}
       propertyPath: EquipSFX

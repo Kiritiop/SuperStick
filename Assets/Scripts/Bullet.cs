@@ -20,6 +20,7 @@ public class Bullet : MonoBehaviour
     public void Init(Vector2 dir)
     {
         direction = dir;
+        transform.rotation = Quaternion.Euler(0,0, 180/Mathf.PI*Mathf.Atan2(dir.y, dir.x));
         rb.linearVelocity = dir * speed;
         Destroy(gameObject, lifetime);
     }

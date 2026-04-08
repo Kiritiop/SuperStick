@@ -556,6 +556,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIManager
   messageText: {fileID: 1115282169}
+  player1ScoreText: {fileID: 0}
+  player2ScoreText: {fileID: 0}
+  winScreenPanel: {fileID: 0}
+  winnerText: {fileID: 0}
+  finalScoreText: {fileID: 0}
 --- !u!4 &233983513
 Transform:
   m_ObjectHideFlags: 0

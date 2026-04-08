@@ -61,7 +61,7 @@ public class GunSpawner : MonoBehaviour
             }
         }
 
-        int gunType = Random.Range(0, 4);
+        int gunType = Random.Range(0, 3);
 
         if (gunType == 0) //normal gun, no modifiers
         {
@@ -73,13 +73,7 @@ public class GunSpawner : MonoBehaviour
             goon.AddComponent<GunFireRate>();
             goon.GetComponent<SpriteRenderer>().color = Color.red;
         }
-        else if (gunType == 2) //attach GunSize script to gun
-        {
-            GameObject goon = Instantiate(gun, platform.transform.position + new Vector3(0, 10, 0), Quaternion.identity);
-            goon.AddComponent<GunSize>();
-            goon.GetComponent<SpriteRenderer>().color = Color.blue;
-        }
-        else if (gunType == 3) //attach GunSpeed script to gun
+        else if (gunType == 2) //attach GunSpeed script to gun
         {
             GameObject goon = Instantiate(gun, platform.transform.position + new Vector3(0, 10, 0), Quaternion.identity);
             goon.AddComponent<GunSpeed>();

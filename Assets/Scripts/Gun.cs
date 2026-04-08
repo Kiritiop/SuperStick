@@ -99,7 +99,6 @@ public class Gun : MonoBehaviour
             if (Gamepad.current != null)
             {
                 Vector2 rightStick = Gamepad.current.rightStick.ReadValue();
-                Debug.Log(rightStick);
 
                 if (rightStick.magnitude > 0.2f)
                     direction = rightStick.normalized;

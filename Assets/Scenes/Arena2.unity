@@ -1061,7 +1061,7 @@ MonoBehaviour:
   player1Score: 0
   player2Score: 0
   roundsToWin: 3
-  PauseMenu: {fileID: 1945270200}
+  PauseMenu: {fileID: 1044625501}
 --- !u!4 &493020553
 Transform:
   m_ObjectHideFlags: 0
@@ -2187,7 +2187,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1044625502
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3833,6 +3833,10 @@ PrefabInstance:
       propertyPath: ShootSFX
       value: 
       objectReference: {fileID: 8300000, guid: 8bd2d7f87a5656b4eb525b4c16ca027e, type: 3}
+    - target: {fileID: 7686268247464580061, guid: 8d336be941e25f945b4f8d15ae4765dc, type: 3}
+      propertyPath: inputMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9198601002293740879, guid: 8d336be941e25f945b4f8d15ae4765dc, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.11
@@ -3896,7 +3900,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1945270201
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3958,7 +3962,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_TargetDisplay: 0
 --- !u!224 &1945270204
 RectTransform:
@@ -4124,9 +4128,9 @@ SceneRoots:
   m_Roots:
   - {fileID: 256797098}
   - {fileID: 493020553}
+  - {fileID: 1945270204}
   - {fileID: 1353401868}
   - {fileID: 988422675}
-  - {fileID: 1945270204}
   - {fileID: 4830031}
   - {fileID: 1764822037}
   - {fileID: 1560166865}

@@ -3883,7 +3883,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_TargetDisplay: 0
 --- !u!224 &1880317417
 RectTransform:
@@ -4431,7 +4431,7 @@ MonoBehaviour:
   player1Score: 0
   player2Score: 0
   roundsToWin: 3
-  PauseMenu: {fileID: 1880317413}
+  PauseMenu: {fileID: 1128895335}
 --- !u!4 &2142708111
 Transform:
   m_ObjectHideFlags: 0
@@ -4517,6 +4517,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 958878653}
+  - {fileID: 1880317417}
   - {fileID: 465681609}
   - {fileID: 1410630595}
   - {fileID: 633697060}
@@ -4527,7 +4528,6 @@ SceneRoots:
   - {fileID: 77123852}
   - {fileID: 2142708111}
   - {fileID: 1784598495}
-  - {fileID: 1880317417}
   - {fileID: 2077721718}
   - {fileID: 937433804}
   - {fileID: 5649990138065980774}

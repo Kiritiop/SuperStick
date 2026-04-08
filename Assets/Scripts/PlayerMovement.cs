@@ -55,20 +55,26 @@ public class PlayerMovement : MonoBehaviour
         // Debug.Log(leftStick);
     }
 
-    void HandleDirection()
+void HandleDirection()
+{
+    float stickX = 0f;
+
+    if (inputMode == InputMode.Gamepad && Gamepad.current != null)
     {
-        if (Keyboard.current[rightKey].isPressed)
-        {
-            directionFacing = "right";
-            transform.rotation = Quaternion.Euler(0, 180, 0);
-        }
-        else if (Keyboard.current[leftKey].isPressed)
-        {
-            directionFacing = "left";
-            transform.rotation = Quaternion.Euler(0, 0, 0);
-        }
-        
+        stickX = Gamepad.current.leftStick.ReadValue().x;
     }
+
+    if (Keyboard.current[rightKey].isPressed || stickX > 0.1f)
+    {
+        directionFacing = "right";
+        transform.rotation = Quaternion.Euler(0, 180, 0);
+    }
+    else if (Keyboard.current[leftKey].isPressed || stickX < -0.1f)
+    {
+        directionFacing = "left";
+        transform.rotation = Quaternion.Euler(0, 0, 0);
+    }
+}
 
     // void OnGUI()
     // {

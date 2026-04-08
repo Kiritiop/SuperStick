@@ -116,7 +116,7 @@ TextureImporter:
       name: Player2Sprite_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 1
         y: 0
         width: 79
         height: 97

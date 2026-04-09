@@ -12,8 +12,6 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed = 6f;
     public float jumpForce = 100f;
     public string directionFacing;
-    float jumpTimeCounter = 0f;
-    float maxJumpTime = 0.5f;
 
     [Header("Ground Check")]
     public Transform groundCheck;

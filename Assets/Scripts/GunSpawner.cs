@@ -1,88 +1,78 @@
-using UnityEditor.Rendering;
 using UnityEngine;
-using System.Collections;
-using UnityEditor.ShaderGraph.Internal;
 
 public class GunSpawner : MonoBehaviour
 {
-
-    public GameObject gun;
-    public GameObject fastBullet;
-    private float spawnRate = 5f; //how many seconds per gun
+    public GameObject pistolPrefab;
+    public GameObject riflePrefab;
+    public GameObject sniperPrefab;
+    public GameObject shotgunPrefab;
+    private float spawnRate = 5f;
     private float timer;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         timer = spawnRate;
-        
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if(GameManager.getGameOver() == false && GameManager.getIsPaused() == false)
+        if (!GameManager.getGameOver() && !GameManager.getIsPaused())
         {
             if (timer > 0)
-            {
                 timer -= Time.deltaTime;
-            } else
+            else
             {
-                spawnGun();
+                SpawnGun();
                 timer = spawnRate;
             }
         }
     }
 
-    void spawnGun()
+    void SpawnGun()
     {
-        GameObject[] allObjects = GameObject.FindObjectsByType<GameObject>(FindObjectsSortMode.None);
-        GameObject[] groundObjects = new GameObject[allObjects.Length];
-        int groundObjectsIndex = 0;
+        // Find all ground objects correctly
+        GameObject[] groundObjects = GameObject.FindGameObjectsWithTag("Ground");
 
-        for (int i = 0; i < allObjects.Length; i++)
+        if (groundObjects.Length == 0)
         {
-            if (allObjects[i].CompareTag("Ground"))
-            {
-                groundObjects[groundObjectsIndex] = allObjects[i];
-            }
+            Debug.LogWarning("No ground objects found!");
+            return;
         }
 
-        GameObject platform = null;
-        while (true)
-        {
-            if (platform == null)
-            {
-                platform = groundObjects[Random.Range(0, groundObjects.Length - 1)];
-            }
-            else
-            {
-                break;
-            }
-        }
+        // Pick a random platform safely
+        GameObject platform = groundObjects[Random.Range(0, groundObjects.Length)];
+
+        // Get the top of the platform using its collider
+        float spawnY = platform.transform.position.y;
+        Collider2D col = platform.GetComponent<Collider2D>();
+        if (col != null)
+            spawnY = col.bounds.max.y + 0.5f;
+
+        Vector3 spawnPos = new Vector3(platform.transform.position.x, spawnY, 0);
 
         int gunType = Random.Range(0, 3);
 
-        if (gunType == 0) //normal gun, no modifiers
-        {
-            Instantiate(gun, platform.transform.position + new Vector3(0, 10, 0), Quaternion.identity);
-        }
-        else if (gunType == 1) //attach GunFireRate script to gun
-        {
-            GameObject goon = Instantiate(gun, platform.transform.position + new Vector3(0, 10, 0), Quaternion.identity);
-            goon.AddComponent<GunFireRate>();
-            goon.GetComponent<SpriteRenderer>().color = Color.red;
-        }
-        else if (gunType == 2) //attach GunSpeed script to gun
-        {
-            GameObject goon = Instantiate(gun, platform.transform.position + new Vector3(0, 10, 0), Quaternion.identity);
-            goon.AddComponent<GunSpeed>();
-            goon.GetComponent<GunSpeed>().bulletSpeedPrefab = fastBullet;
-            goon.GetComponent<SpriteRenderer>().color = Color.green;
-        }
+        // if (gunType == 0)
+        // {
+        //     Instantiate(gun, spawnPos, Quaternion.identity);
+        // }
+        // else if (gunType == 1)
+        // {
+        //     GameObject goon = Instantiate(gun, spawnPos, Quaternion.identity);
+        //     goon.AddComponent<GunFireRate>();
+        //     goon.GetComponent<SpriteRenderer>().color = Color.red;
+        // }
+        // else if (gunType == 2)
+        // {
+        //     GameObject goon = Instantiate(gun, spawnPos, Quaternion.identity);
+        //     goon.AddComponent<GunSpeed>();
+        //     goon.GetComponent<GunSpeed>().bulletSpeedPrefab = fastBullet;
+        //     goon.GetComponent<SpriteRenderer>().color = Color.green;
+        // }
 
+                GameObject[] weaponTypes = { pistolPrefab, riflePrefab, sniperPrefab, shotgunPrefab };
+        GameObject chosenWeapon = weaponTypes[Random.Range(0, weaponTypes.Length)];
+
+        Instantiate(chosenWeapon, spawnPos, Quaternion.identity);
     }
-
-    
-
 }

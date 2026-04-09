@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
 
+// INHERITANCE
+
 public class Gun : MonoBehaviour
 {
     public enum InputMode { Keyboard, Gamepad }
@@ -13,15 +15,17 @@ public class Gun : MonoBehaviour
     [Header("Gun Settings")]
     public GameObject[] bulletPrefab;
     public GameObject playerParent = null;
-    public Transform firePoint;
-    public float fireRate = 0.3f;
-    public int ammo = 25;
+    public Transform firePoint; 
+    protected float fireRate = 0.3f;
+    protected int ammo = 10; 
+    protected int damage = 20; 
+    protected float bulletSpeed = 15f;  //???????????
     
     [Header("Input")]
     public Key shootKey;
 
-    private float nextFireTime = 0f;
-    private Vector2 direction = Vector2.right;
+    protected float nextFireTime = 0f;
+    protected Vector2 direction = Vector2.right;
 
     [SerializeField] private AudioClip ShootSFX;
     [SerializeField] private AudioClip EquipSFX;
@@ -30,6 +34,7 @@ public class Gun : MonoBehaviour
     private void Start()
     {
         firePoint = transform.GetChild(0).gameObject.transform;
+        this.transform.GetChild(1).GetComponent<TMP_Text>().text = ammo.ToString();
     }
 
     protected virtual void Update()
@@ -69,6 +74,7 @@ public class Gun : MonoBehaviour
                 {
                     Shoot();
                     nextFireTime = Time.time + fireRate;
+                    Debug.Log(Time.time + " vs " + nextFireTime);
                     SoundEffectManager.instance.PlaySoundEffect(ShootSFX, transform, 0.1f);
                 }
             }
@@ -78,12 +84,12 @@ public class Gun : MonoBehaviour
         }
     }
 
-    void Shoot()
+    protected virtual void Shoot()
     {
         
-        int index = Random.Range(0, bulletPrefab.Length);
+        int index = Random.Range(0, bulletPrefab.Length); //????
         
-        if (bulletPrefab == null || firePoint == null) return;
+        if (bulletPrefab == null || bulletPrefab.Length == 0 || firePoint == null) return;
 
         if (inputMode == InputMode.Keyboard)
         {
@@ -99,6 +105,7 @@ public class Gun : MonoBehaviour
             if (Gamepad.current != null)
             {
                 Vector2 rightStick = Gamepad.current.rightStick.ReadValue();
+                Debug.Log(rightStick);
 
                 if (rightStick.magnitude > 0.2f)
                     direction = rightStick.normalized;
@@ -109,11 +116,12 @@ public class Gun : MonoBehaviour
         GameObject bulletObj = Instantiate(bulletPrefab[index], spawnPos, Quaternion.identity);
         Bullet bullet = bulletObj.GetComponent<Bullet>();
         ammo -= 1;
+
         this.transform.GetChild(1).GetComponent<TMP_Text>().text = ammo.ToString();
 
         if (bullet != null)
         {
-            bullet.Init(direction);
+            bullet.Init(direction, damage, bulletSpeed);
         }
         
     }

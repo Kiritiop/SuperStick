@@ -22,6 +22,11 @@ public class GameManager : MonoBehaviour
 
     private bool roundOver = false;
 
+    [Header("Health Bars")]
+    public HealthBar healthBar1;
+    public HealthBar healthBar2;
+
+
     public GameObject PauseMenu;
     private static bool isPaused = false;
     private static bool gameOver = false;
@@ -37,6 +42,10 @@ public class GameManager : MonoBehaviour
         // Listen to death events
         player1.GetComponent<PlayerHealth>().onDeath.AddListener(OnPlayer1Died);
         player2.GetComponent<PlayerHealth>().onDeath.AddListener(OnPlayer2Died);
+
+        // Initialize health bars
+        healthBar1.Initialize(player1.GetComponent<PlayerHealth>());
+        healthBar2.Initialize(player2.GetComponent<PlayerHealth>());
         
     }
 
@@ -106,6 +115,9 @@ public class GameManager : MonoBehaviour
         player1.GetComponent<PlayerHealth>().ResetHealth();
         player2.SetActive(true);
         player2.GetComponent<PlayerHealth>().ResetHealth();
+
+        healthBar1.Initialize(player1.GetComponent<PlayerHealth>());
+        healthBar2.Initialize(player2.GetComponent<PlayerHealth>());
 
         //reset guns
         Gun.DestroyAllGuns();
